@@ -11,7 +11,7 @@ export class MockApiHttpRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
     let response = new HttpResponse({ status: 404, body: {}, statusText: 'Not Found' });
 
-    console.log(`[MockApi] request url: ${req.url}`);
+    console.log('[MockApi] request url:', req.url);
 
     switch (req.url) {
       case '/messages/conversation':
@@ -26,7 +26,7 @@ export class MockApiHttpRequestInterceptor implements HttpInterceptor {
       case '/messages':
         const messageTx: ChatMessageTx = req.body;
         const conversation = ConversationRxMockData[messageTx.receiverId];
-        console.log(req.body); // {senderId: '124', receiverId: '123', content: 'asfqf', status: 'SENT'}
+        console.log('[MockApi]', req.body); // {senderId: '124', receiverId: '123', content: 'asfqf', status: 'SENT'}
         const lastMessage = conversation.messages[0];
         let senderName = lastMessage.senderName;
         let receiverName = lastMessage.receiverName;
@@ -45,7 +45,7 @@ export class MockApiHttpRequestInterceptor implements HttpInterceptor {
           createdTimestamp: new Date().toISOString(),
         };
         ConversationRxMockData[messageTx.receiverId].messages.unshift(messageRx);
-        console.log(ConversationRxMockData[messageTx.receiverId].messages);
+        console.log('[MockApi]', ConversationRxMockData[messageTx.receiverId].messages);
         response = new HttpResponse({ status: 200, body: {} });
         break
       default:
@@ -53,7 +53,7 @@ export class MockApiHttpRequestInterceptor implements HttpInterceptor {
           const id = req.url.split('/').pop();
           if (id && id in ConversationRxMockData) response = new HttpResponse({ status: 200, body: structuredClone(ConversationRxMockData[id]) });
         } else {
-          console.log(`[MockApi] unknown url: ${req.url}`);
+          console.log('[MockApi] unknown url:', req.url);
         }
         break;
     }
