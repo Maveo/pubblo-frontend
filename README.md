@@ -1,5 +1,18 @@
 # PubbloFrontend
 
+## 🔐 Authentication with HttpOnly JWT Cookies
+
+This app uses JWT tokens stored in **HttpOnly cookies** for authentication.
+
+### Key Points
+
+- The **backend sets** the JWT in an HttpOnly cookie via `Set-Cookie`.
+- Angular **cannot access** HttpOnly cookies (for security reasons), but it **can send them automatically** with requests.
+- To include the cookie with HTTP requests, always set `withCredentials: true`:
+
+  ```ts
+  this.http.get('/api/endpoint', { withCredentials: true });
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
 
 ## Development server

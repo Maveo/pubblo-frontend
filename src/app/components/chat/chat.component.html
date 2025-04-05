@@ -1,0 +1,4 @@
+<app-conversation-selector (selectedConversationId)="onConversationSelected($event)"></app-conversation-selector>
+@if (selectedConversationId) {
+  <app-conversation-bubble [selectedId]="selectedConversationId"></app-conversation-bubble>
+}

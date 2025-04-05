@@ -1,0 +1,43 @@
+<div class="max-w-md mx-auto p-6 shadow-md rounded-md">
+  <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input
+        formControlName="username"
+        type="text"
+        class="input input-bordered w-full mt-2"
+        placeholder="Enter your username"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="input input-bordered w-full mt-2"
+        placeholder="Enter your password"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-full mt-4"
+      [disabled]="loginForm.invalid || loading"
+    >
+      @if (loading) {
+        <span class="loading loading-spinner loading-sm"></span>
+      }
+      Login
+    </button>
+
+    @if (httpError) {
+      <div class="mt-4 text-red-500 text-center">
+        {{ httpError.statusText }}
+      </div>
+    }
+  </form>
+</div>

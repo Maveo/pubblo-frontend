@@ -1,0 +1,49 @@
+<div>
+  @if (conversation$ | async; as conversation) {
+<!--
+
+    <div class="chat chat-end">
+      <div class="chat-image avatar">
+        <div class="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS chat bubble component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <div class="chat-header">
+        Anakin
+        <time class="text-xs opacity-50">12:46</time>
+      </div>
+      <div class="chat-bubble">I hate you!</div>
+      <div class="chat-footer opacity-50">Seen at 12:46</div>
+    </div> -->
+
+    @for (message of conversation.messages.slice().reverse(); track message.id) {
+
+      <div class="chat" [class.chat-start]="message.senderId != meAuth.id" [class.chat-end]="message.senderId == meAuth.id">
+        <div class="chat-image avatar">
+          <div class="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS chat bubble component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+        </div>
+        <div class="chat-header">
+          {{message.senderName}}
+          <time class="text-xs opacity-50">{{message.createdTimestamp}}</time>
+        </div>
+        <div class="chat-bubble">{{message.content}}</div>
+        <div class="chat-footer opacity-50">{{message.status}}</div>
+      </div>
+
+    }
+
+  } @else {
+    <span class="loading loading-dots loading-md"></span>Loading Chat
+  }
+
+  <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="flex items-center space-x-2">
+    <input type="text" class="input input-bordered w-full" placeholder="Type your message..." formControlName="message">
+    <button type="submit" class="btn btn-primary" [disabled]="messageForm.invalid">Send</button>
+  </form>
+</div>
