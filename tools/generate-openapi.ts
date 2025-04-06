@@ -54,8 +54,7 @@ for (const route of MockApiRoutes) {
           'application/json': {
             example: (() => {
               try {
-                const fakeReq = { ...route.req };
-                const res = route.res(<any>fakeReq);
+                const res = route.res();
                 return res.body;
               } catch {
                 return {}; // fallback

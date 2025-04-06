@@ -11,22 +11,22 @@ import { MockRoute } from "./mock-route.model";
 export const MockApiRoutes = [
   <MockRoute<AuthLoginTx, {}>>{
     req: new HttpRequest('POST', '/login', { username: 'dummy', password: 'dummypassword' }),
-    res: (req) => new HttpResponse({ status: 200, body: {} }),
+    res: () => new HttpResponse({ status: 200, body: {} }),
   },
 
   <MockRoute<{}, AuthMeRx>>{
     req: new HttpRequest('GET', '/me'),
-    res: (req) => new HttpResponse({ status: 200, body: structuredClone(AuthMeMockData) }),
+    res: () => new HttpResponse({ status: 200, body: structuredClone(AuthMeMockData) }),
   },
 
   <MockRoute<{}, ChatConversationsRx>>{
     req: new HttpRequest('GET', '/messages/conversation'),
-    res: (req) => new HttpResponse({ status: 200, body: structuredClone(ConversationRxMockData) }),
+    res: () => new HttpResponse({ status: 200, body: structuredClone(ConversationRxMockData) }),
   },
 
   <MockRoute<ChatMessageTx, {}>>{
     req: new HttpRequest('POST', '/messages', { senderId: '124', receiverId: '123', content: 'Hello World', status: 'SENT' }),
-    res: (req) => {
+    res: (req = new HttpRequest('POST', '/messages', { senderId: '124', receiverId: '123', content: 'Hello World', status: 'SENT' })) => {
       const messageTx = req.body!;
       const conversation = ConversationRxMockData[messageTx.receiverId];
       console.log('[MockApi]', req.body); // {senderId: '124', receiverId: '123', content: 'asfqf', status: 'SENT'}
@@ -55,7 +55,7 @@ export const MockApiRoutes = [
 
   <MockRoute<{}, ChatConversationRx>>{
     req: new HttpRequest('GET', '/messages/conversation/{conversationId}'),
-    res: (req) => {
+    res: (req = new HttpRequest('GET', '/messages/conversation/123')) => {
       const id = req.url.split('/').pop();
       return new HttpResponse({ status: 200, body: structuredClone(ConversationRxMockData[id!]) });
     }
