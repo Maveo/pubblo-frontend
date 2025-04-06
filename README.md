@@ -15,6 +15,11 @@ This app uses JWT tokens stored in **HttpOnly cookies** for authentication.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
 
+## API Improvements
+
+very fine-grained interfaces, example:
+extra request for setting status of message to read isn't needed, just fetch a single message and then it can automatically switch to message was transmitted
+
 ## Development server
 
 To start a local development server, run:
