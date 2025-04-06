@@ -42,4 +42,4 @@ jobs:
         git add --force ./docs/app
         git add --force ./docs/openapi.json
         git clean -f
-        git diff-index --quiet HEAD || git commit -m "Automated pages app build" && git push
+        git diff-index --quiet HEAD || (git add . && git commit -m "Automated pages app build" && git push)
