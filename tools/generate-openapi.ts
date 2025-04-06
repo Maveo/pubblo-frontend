@@ -36,7 +36,7 @@ for (const route of MockApiRoutes) {
   const pathEntry = openApiSpec.paths[pathUrl] ||= {};
 
   pathEntry[method] = {
-    summary: `Mock ${method.toUpperCase()} ${pathUrl}`,
+    summary: `${method.toUpperCase()} ${pathUrl}`,
     parameters: pathParams,
     requestBody: route.req.body
       ? {
