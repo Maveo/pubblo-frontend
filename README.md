@@ -13,12 +13,18 @@ This app uses JWT tokens stored in **HttpOnly cookies** for authentication.
   ```ts
   this.http.get('/api/endpoint', { withCredentials: true });
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
-
 ## API Improvements
 
 very fine-grained interfaces, example:
 extra request for setting status of message to read isn't needed, just fetch a single message and then it can automatically switch to message was transmitted
+
+## Generate OpenAPI
+
+```bash
+npm run generate-openapi
+```
+
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
 
 ## Development server
 
