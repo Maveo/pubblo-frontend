@@ -1,0 +1,51 @@
+<div class="flex flex-col grow items-center shadow-sm">
+  <div class="navbar bg-base-100 container">
+    <div class="flex-1">
+      <a routerLink="/" class="font-bold text-xl p-0" style="color: #FF5050;">PUBBLO</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li><a routerLink="/">Home</a></li>
+        <li class="pointer-events-none !cursor-no-drop"><a>Games</a></li>
+        <li class="pointer-events-none !cursor-no-drop"><a>Market</a></li>
+        <li><a routerLink="/chats">Chats</a></li>
+        <!-- <li>
+          <details>
+            <summary>Profile</summary>
+            <ul class="bg-base-100 rounded-t-none p-2">
+              <li><a>Option A</a></li>
+              <li><a>Option B</a></li>
+              <li><a>Option C</a></li>
+            </ul>
+          </details>
+        </li> -->
+      </ul>
+    </div>
+    <div class="flex gap-2 mx-2">
+      <button class="btn btn-sm btn-outline rounded-full" disabled>Quick Pitch</button>
+      <a routerLink="/step-a" class="btn btn-sm btn-neutral rounded-full">Pitch</a>
+    </div>
+    <div class="flex gap-2">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img alt="Tailwind CSS Navbar component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+        </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+          <!-- <li>
+            <a class="justify-between">
+              Profile
+              <span class="badge">New</span>
+            </a>
+          </li> -->
+          <li><a routerLink="/login"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+</svg>
+Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

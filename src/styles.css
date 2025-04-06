@@ -3,3 +3,12 @@
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
 }
+
+html, body {
+  height: 100%;
+}
+
+/* TODO better way to apply class globally to router component? */
+router-outlet + * {
+  @apply flex flex-col grow w-full;
+}

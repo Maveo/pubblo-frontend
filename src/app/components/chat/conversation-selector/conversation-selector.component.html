@@ -1,13 +1,41 @@
 <div>
   @if (conversations$ | async; as conversations) {
     @for (conversation of conversations | keyvalue; track conversation.key) {
-      <button class="chat-image w-10 rounded-full cursor-pointer bg-primary" (click)="selectedConversationId.emit(conversation.key)">
-        <img alt="Tailwind CSS chat bubble component"
-          [src]="conversation.value.userImage" />
-        {{conversation.value.userName}}
-      </button>
+
+  <div [class.bg-red-100]="(selectedConversationId | async) == conversation.key"
+    class="flex flex-row justify-start items-start gap-4 cursor-pointer p-4"
+    (click)="selectedConversationId.emit(conversation.key)"
+  >
+    <div class="avatar">
+      <div class="w-10 rounded-full">
+        <img
+          alt="Tailwind CSS chat bubble component"
+          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+        />
+      </div>
+    </div>
+
+    <div>
+      <div class="flex justify-between items-center">
+        <div class="text-lg">{{ conversation.value.userName }}</div>
+        <div class="text-gray-500">2m</div>
+      </div>
+
+      <div class="text-gray-500">
+        "Hitster"
+      </div>
+
+      <div class="text-gray-500 text-sm">
+        How do you plan on doing the ...
+      </div>
+    </div>
+
+  </div>
+
     }
   } @else {
-    <span class="loading loading-dots loading-md"></span>Loading Chat
+    <div class="flex items-center justify-center h-full gap-3 mt-4">
+        <span class="loading loading-spinner loading-lg"></span>Loading Chats
+      </div>
   }
 </div>

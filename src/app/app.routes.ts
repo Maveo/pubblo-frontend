@@ -6,11 +6,13 @@ import { CCategoriesGenreTagsComponent } from './step-by-step/c-categories-genre
 import { DVisualsComponent } from './step-by-step/d-visuals/d-visuals.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './shared/api/auth/auth.guard';
+import { ChatsComponent } from './chats/chats.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/overview', pathMatch: 'full' },  // Redirect to login if no route matches
+  { path: '', redirectTo: '/overview', pathMatch: 'full' },  // Redirect to overview if no route matches
 
   { path: 'overview', component: OverviewComponent, canActivate: [AuthGuard] },
+  { path: 'chats', component: ChatsComponent, canActivate: [AuthGuard] },
 
   { path: 'step-a', component: ANameTagComponent, canActivate: [AuthGuard] },
   { path: 'step-b', component: BShortPitchComponent, canActivate: [AuthGuard] },
