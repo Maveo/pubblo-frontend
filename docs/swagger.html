@@ -1,29 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI - Swagger UI</title>
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui.css">
     <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
-    <title>FastAPI - Swagger UI</title>
 </head>
 <body>
-<div id="swagger-ui">
-</div>
-<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui-bundle.js"></script>
-<!-- `SwaggerUIBundle` is now available on the page -->
-<script>
-    const ui = SwaggerUIBundle({
-        url: 'openapi.json',
-    "dom_id": "#swagger-ui",
-"layout": "BaseLayout",
-"deepLinking": true,
-"showExtensions": true,
-"showCommonExtensions": true,
-    presets: [
-        SwaggerUIBundle.presets.apis,
-        SwaggerUIBundle.SwaggerUIStandalonePreset
-        ],
-    })
+    <div id="swagger-ui"></div>
 
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui-bundle.js"></script>
+
+    <script>
+        // Ensure the OpenAPI URL is correct
+        const apiUrl = 'openapi.json';  // Path to your OpenAPI JSON file
+
+        // Initialize Swagger UI
+        const ui = SwaggerUIBundle({
+            url: apiUrl,
+            dom_id: '#swagger-ui',
+            layout: 'BaseLayout',
+            deepLinking: true,
+            showExtensions: true,
+            showCommonExtensions: true,
+            presets: [
+                SwaggerUIBundle.presets.apis,
+                SwaggerUIBundle.SwaggerUIStandalonePreset
+            ],
+            requestInterceptor: (request) => {
+                // Optional: Add custom logic here to intercept and modify requests
+                return request;
+            },
+            responseInterceptor: (response) => {
+                // Optional: Add custom logic here to intercept and modify responses
+                return response;
+            },
+            onComplete: () => {
+                console.log('Swagger UI initialized successfully.');
+            },
+            onFailure: (error) => {
+                console.error('Failed to initialize Swagger UI:', error);
+            }
+        });
+
+        // Add error handling in case OpenAPI URL is missing or not valid
+        if (!apiUrl) {
+            console.error('OpenAPI specification URL is missing or invalid.');
+        }
+    </script>
 </body>
 </html>
