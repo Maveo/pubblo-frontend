@@ -1,2 +1,18 @@
-<input type="text" placeholder="Name" class="input input-primary" />
-<a routerLink="/step-b" class="btn">Next Step</a>
+<div class="flex flex-col grow items-center">
+  <div class="flex flex-col grow container pt-20 items-center">
+
+    <app-steps-indicator class="w-md" [currentStep]="1" [maxSteps]="4"></app-steps-indicator>
+    <app-steps-header
+      class="my-10"
+      titleText="1. What's your game called?">
+      Choose a name that reflects the theme or vibe of your game. You can change it later.
+    </app-steps-header>
+
+    <!-- Step Input -->
+    <div class="flex flex-row items-center gap-3">
+      <input type="text" placeholder="Name" class="input rounded-lg w-md" />
+      <a routerLink="/step-b" class="btn btn-neutral rounded-lg bg-gray-700">Next</a>
+    </div>
+
+  </div>
+</div>

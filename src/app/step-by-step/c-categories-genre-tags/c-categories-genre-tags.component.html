@@ -1,10 +1,28 @@
-<div class="badge badge-primary">Primary</div>
-<div class="badge badge-secondary">Secondary</div>
-<div class="badge badge-accent">Accent</div>
-<div class="badge badge-neutral">Neutral</div>
-<div class="badge badge-info">Info</div>
-<div class="badge badge-success">Success</div>
-<div class="badge badge-warning">Warning</div>
-<div class="badge badge-error">Error</div>
+<div class="flex flex-col grow items-center">
+  <div class="flex flex-col grow container pt-20 items-center">
 
-<a routerLink="/step-d" class="btn">Next Step</a>
+    <app-steps-indicator class="w-md" [currentStep]="3" [maxSteps]="4"></app-steps-indicator>
+    <app-steps-header
+      class="my-10"
+      titleText="3. Add tags to describe your game">
+      Tags help others discover your game.<br>Select what fits best — you can add or remove them anytime.
+    </app-steps-header>
+
+    <!-- Step Input -->
+    <div class="flex flex-row items-center gap-3">
+      <input type="text" placeholder="Tags" class="input rounded-lg w-md" />
+      <a routerLink="/step-d" class="btn btn-neutral rounded-lg bg-gray-700">Next</a>
+    </div>
+    <div class="flex flex-row items-center gap-3 mt-3">
+      <div class="badge badge-primary">Party</div>
+      <div class="badge badge-secondary">Strategy</div>
+      <div class="badge badge-accent">Family-friendly</div>
+      <div class="badge badge-neutral">Fantasy</div>
+      <!-- <div class="badge badge-info">Info</div>
+      <div class="badge badge-success">Success</div>
+      <div class="badge badge-warning">Warning</div>
+      <div class="badge badge-error">Error</div> -->
+    </div>
+
+  </div>
+</div>

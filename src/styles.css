@@ -4,6 +4,15 @@
   themes: light --default, dark --prefersdark;
 }
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-primary: oklch(0.68 0.2115 24.81);
+  --color-primary-content: oklch(93% 0.034 272.788);
+}
+
 html, body {
   height: 100%;
 }

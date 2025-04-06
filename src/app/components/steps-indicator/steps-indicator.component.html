@@ -1,0 +1,5 @@
+<ul class="steps w-full">
+  @for (item of [].constructor(maxSteps); track $index) {
+    <li class="step" [class.step-primary]="$index < currentStep"></li>
+  }
+</ul>
