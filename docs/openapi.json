@@ -7,7 +7,7 @@
   "paths": {
     "/login": {
       "post": {
-        "summary": "Mock POST /login",
+        "summary": "POST /login",
         "parameters": [],
         "requestBody": {
           "content": {
@@ -33,7 +33,7 @@
     },
     "/me": {
       "get": {
-        "summary": "Mock GET /me",
+        "summary": "GET /me",
         "parameters": [],
         "responses": {
           "200": {
@@ -54,7 +54,7 @@
     },
     "/messages/conversation": {
       "get": {
-        "summary": "Mock GET /messages/conversation",
+        "summary": "GET /messages/conversation",
         "parameters": [],
         "responses": {
           "200": {
@@ -127,7 +127,7 @@
     },
     "/messages": {
       "post": {
-        "summary": "Mock POST /messages",
+        "summary": "POST /messages",
         "parameters": [],
         "requestBody": {
           "content": {
@@ -155,7 +155,7 @@
     },
     "/messages/conversation/{conversationId}": {
       "get": {
-        "summary": "Mock GET /messages/conversation/{conversationId}",
+        "summary": "GET /messages/conversation/{conversationId}",
         "parameters": [
           {
             "name": "conversationId",
