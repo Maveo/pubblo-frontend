@@ -1,0 +1,182 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mock API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Mock POST /login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "username": "dummy",
+                "password": "dummypassword"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "summary": "Mock GET /me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "124",
+                  "tokenExpiration": "2025-11-11T21:52:36.713+00:00",
+                  "name": "Kai",
+                  "image": "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/conversation": {
+      "get": {
+        "summary": "Mock GET /messages/conversation",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "123": {
+                    "userImage": "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+                    "userName": "Kai",
+                    "messages": [
+                      {
+                        "id": "2",
+                        "senderId": "123",
+                        "receiverId": "124",
+                        "senderName": "Kai",
+                        "receiverName": "Jakob",
+                        "content": "Hello, how are you?",
+                        "status": "SENT",
+                        "statusTimestamp": "2025-04-04T21:55:00.000+00:00",
+                        "createdTimestamp": "2025-04-04T21:53:00.000+00:00"
+                      },
+                      {
+                        "id": "1",
+                        "senderId": "124",
+                        "receiverId": "123",
+                        "senderName": "Jakob",
+                        "receiverName": "Kai",
+                        "content": "I'm good, thanks! How about you?",
+                        "status": "READ",
+                        "statusTimestamp": "2025-04-04T21:52:36.713+00:00",
+                        "createdTimestamp": "2025-04-04T21:52:36.713+00:00"
+                      }
+                    ]
+                  },
+                  "125": {
+                    "userImage": "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+                    "userName": "Jonas",
+                    "messages": [
+                      {
+                        "id": "2",
+                        "senderId": "124",
+                        "receiverId": "125",
+                        "senderName": "Jakob",
+                        "receiverName": "Jonas",
+                        "content": "Hello, how are you?",
+                        "status": "SENT",
+                        "statusTimestamp": "2025-04-04T21:55:00.000+00:00",
+                        "createdTimestamp": "2025-04-04T21:53:00.000+00:00"
+                      },
+                      {
+                        "id": "1",
+                        "senderId": "125",
+                        "receiverId": "124",
+                        "senderName": "Jonas",
+                        "receiverName": "Jakob",
+                        "content": "I'm good, thanks! How about you?",
+                        "status": "READ",
+                        "statusTimestamp": "2025-04-04T21:52:36.713+00:00",
+                        "createdTimestamp": "2025-04-04T21:52:36.713+00:00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "summary": "Mock POST /messages",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "senderId": "124",
+                "receiverId": "123",
+                "content": "Hello World",
+                "status": "SENT"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/conversation/{conversationId}": {
+      "get": {
+        "summary": "Mock GET /messages/conversation/{conversationId}",
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": null
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
