@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import('@angular/compiler');
+import '@angular/compiler';
 import { MockApiRoutes } from '../src/app/shared/api/interceptors/mock-api/mock-routes';
 
 // Get output path from command-line args
