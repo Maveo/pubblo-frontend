@@ -19,5 +19,5 @@ html, body {
 
 /* TODO better way to apply class globally to router component? */
 router-outlet + * {
-  @apply flex flex-col grow w-full;
+  @apply flex flex-col grow w-full overflow-y-auto;
 }

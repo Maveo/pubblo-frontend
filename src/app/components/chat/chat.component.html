@@ -1,4 +1,4 @@
-<div class="border border-gray-300 rounded-4xl flex flex-row grow">
+<div class="border border-gray-300 rounded-4xl flex flex-row grow h-full">
   <div class="flex flex-col w-80">
     <div class="flex justify-between items-center px-4 border-b border-r border-gray-300 h-16">
       <h1 class="text-2xl">Messages</h1>
@@ -11,9 +11,9 @@
     </div>
   </div>
 
-  <div class="flex flex-col grow">
+  <div class="flex flex-col grow overflow-y-auto">
     @if (selectedConversationId) {
-      <app-conversation-bubble class="grow flex flex-col"
+      <app-conversation-bubble class="grow flex flex-col h-full"
         [selectedId]="selectedConversationId"
       ></app-conversation-bubble>
       }

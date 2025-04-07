@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { ChatService } from '../../../shared/api/chat/chat.service';
 import { CommonModule } from '@angular/common';
 import { Observable, tap } from 'rxjs';
@@ -23,6 +23,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class ConversationBubbleComponent {
   @Input() selectedId!: string; // Receive the selected ID from the parent
 
+  @ViewChild('messagesContainer') private messagesContainer?: ElementRef;
+
   conversation$!: Observable<ChatConversationRx>;
   meAuth!: AuthMeRx;
 
@@ -30,11 +32,18 @@ export class ConversationBubbleComponent {
     message: new FormControl('', { nonNullable: true })
   });
 
-
   constructor(
     private chatService: ChatService,
     private authService: AuthService,
   ) {
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    if (this.messagesContainer) this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
   }
 
   ngOnInit(): void {

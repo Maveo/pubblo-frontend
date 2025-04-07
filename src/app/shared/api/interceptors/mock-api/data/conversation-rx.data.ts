@@ -1,10 +1,22 @@
 import { ChatConversationsRx } from "../../../chat/models/conversation-rx.model";
+import { ChatMessageRx } from "../../../chat/models/message-rx.model";
 
 export const ConversationRxMockData: ChatConversationsRx = {
   "123": {
     userImage: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     userName: "Kai",
     messages: [
+      ...((n = 15) => Array.from({ length: n }, (_, index) => (<ChatMessageRx>{
+        id: String(n + 2 - index),
+        senderId: '123',
+        receiverId: '124',
+        senderName: 'Kai',
+        receiverName: 'Jakob',
+        content: 'Hello, how are you?',
+        status: 'SENT',
+        statusTimestamp: '2025-04-04T21:55:00.000+00:00',
+        createdTimestamp: '2025-04-04T21:53:00.000+00:00',
+      })))(),
       {
         id: '2',
         senderId: '123',
