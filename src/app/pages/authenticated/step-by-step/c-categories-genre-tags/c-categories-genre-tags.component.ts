@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { StepsIndicatorComponent } from "../../components/steps-indicator/steps-indicator.component";
-import { StepsHeaderComponent } from "../../components/steps-header/steps-header.component";
+import { StepsIndicatorComponent } from "../../../../components/steps-indicator/steps-indicator.component";
+import { StepsHeaderComponent } from "../../../../components/steps-header/steps-header.component";
 
 @Component({
   selector: 'app-c-categories-genre-tags',

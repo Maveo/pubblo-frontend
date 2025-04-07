@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/api/auth/auth.service';
+import { AuthService } from '../../shared/api/auth/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthLoginTx } from '../shared/api/auth/models/login-tx.model';
+import { AuthLoginTx } from '../../shared/api/auth/models/login-tx.model';
 
 
 @Component({

@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { OverviewComponent } from './overview/overview.component';
-import { ANameTagComponent } from './step-by-step/a-name-tag/a-name-tag.component';
-import { BShortPitchComponent } from './step-by-step/b-short-pitch/b-short-pitch.component';
-import { CCategoriesGenreTagsComponent } from './step-by-step/c-categories-genre-tags/c-categories-genre-tags.component';
-import { DVisualsComponent } from './step-by-step/d-visuals/d-visuals.component';
-import { LoginComponent } from './login/login.component';
+import { OverviewComponent } from './pages/authenticated/overview/overview.component';
+import { ANameTagComponent } from './pages/authenticated/step-by-step/a-name-tag/a-name-tag.component';
+import { BShortPitchComponent } from './pages/authenticated/step-by-step/b-short-pitch/b-short-pitch.component';
+import { CCategoriesGenreTagsComponent } from './pages/authenticated/step-by-step/c-categories-genre-tags/c-categories-genre-tags.component';
+import { DVisualsComponent } from './pages/authenticated/step-by-step/d-visuals/d-visuals.component';
+import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/api/auth/auth.guard';
-import { ChatsComponent } from './chats/chats.component';
+import { ChatsComponent } from './pages/authenticated/chats/chats.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/overview', pathMatch: 'full' },  // Redirect to overview if no route matches
