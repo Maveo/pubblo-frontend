@@ -7,6 +7,8 @@ import { ChatMessageTx } from "../../chat/models/message-tx.model";
 import { ConversationRxMockData } from "./data/conversation-rx.data";
 import { AuthMeMockData } from "./data/me-rx.data";
 import { MockRoute } from "./mock-route.model";
+import { BadWordsRx } from '../../chat/models/bad-words-rx.model';
+import { BadWordsRxMockData } from './data/bad-words-rx.data';
 
 export const MockApiRoutes = [
   <MockRoute<AuthLoginTx, {}>>{
@@ -59,5 +61,10 @@ export const MockApiRoutes = [
       const id = req.url.split('/').pop();
       return new HttpResponse({ status: 200, body: structuredClone(ConversationRxMockData[id!]) });
     }
+  },
+
+  <MockRoute<{}, BadWordsRx>>{
+    req: new HttpRequest('GET', '/bad-words'),
+    res: () => new HttpResponse({ status: 200, body: structuredClone(BadWordsRxMockData) }),
   },
 ];

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-conversation-selector',
   imports: [CommonModule],
-  providers: [ChatService],
+  providers: [],
   templateUrl: './conversation-selector.component.html',
   styleUrl: './conversation-selector.component.css'
 })

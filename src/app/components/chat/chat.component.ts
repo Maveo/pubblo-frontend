@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ConversationSelectorComponent } from "./conversation-selector/conversation-selector.component";
 import { ConversationBubbleComponent } from "./conversation-bubble/conversation-bubble.component";
+import {ChatService} from '../../shared/api/chat/chat.service';
+import {AuthService} from '../../shared/api/auth/auth.service';
+import {ProfanityService} from '../../shared/profanity/profanity.service';
 
 @Component({
   selector: 'app-chat',
@@ -8,7 +11,11 @@ import { ConversationBubbleComponent } from "./conversation-bubble/conversation-
     ConversationSelectorComponent,
     ConversationBubbleComponent,
   ],
-  providers: [],
+  providers: [
+    ChatService,
+    AuthService,
+    ProfanityService,
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
