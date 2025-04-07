@@ -70,6 +70,12 @@
   <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="flex items-center space-x-2">
     <input type="text" class="input input-bordered w-full" placeholder="Type your message..." formControlName="message"
       required>
-    <button type="submit" class="btn btn-neutral rounded-xl bg-gray-700" [disabled]="messageForm.invalid">Send</button>
+    <button type="submit" class="btn btn-neutral rounded-xl min-w-18 bg-gray-700" [disabled]="messageForm.invalid">
+      @if (sendingMessage) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        Send
+      }
+    </button>
   </form>
 </div>

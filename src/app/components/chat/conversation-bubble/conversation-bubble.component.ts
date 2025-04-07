@@ -28,6 +28,8 @@ export class ConversationBubbleComponent {
   conversation$!: Observable<ChatConversationRx>;
   meAuth!: AuthMeRx;
 
+  sendingMessage = false;
+
   messageForm = new FormGroup({
     message: new FormControl('', { nonNullable: true })
   });
@@ -60,12 +62,16 @@ export class ConversationBubbleComponent {
 
   sendMessage(): void {
     if (this.messageForm.invalid) return;
+    this.sendingMessage = true;
     this.chatService.postNewMessage({
       senderId: this.meAuth.id,
       receiverId: this.selectedId,
       content: this.messageForm.value.message!,
       status: 'SENT',
-    }).subscribe(() => this.loadConversation());
+    }).subscribe(() => {
+      this.sendingMessage = false;
+      this.loadConversation();
+    });
     this.messageForm.reset();
   }
 
