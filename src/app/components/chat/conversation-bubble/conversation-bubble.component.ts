@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { ChatService } from '../../../shared/api/chat/chat.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { ChatConversationRx } from '../../../shared/api/chat/models/conversation-rx.model';
 import { AuthService } from '../../../shared/api/auth/auth.service';
 import { AuthMeRx } from '../../../shared/api/auth/models/me-rx.model';
@@ -65,28 +65,31 @@ export class ConversationBubbleComponent {
     // Get the message content
     const messageContent = this.messageForm.value.message!;
 
-    // Check for profanity before sending the message
-    this.profanityService.containsProfanity(messageContent).subscribe((isProfane) => {
-      if (isProfane) {
-        // Handle profanity detection, e.g., show a warning to the user
-        alert('Your message contains inappropriate language and cannot be sent.');
-        return;  // Prevent message from being sent
-      }
+    // If no profanity, proceed to send the message
+    this.sendingMessage = true;
+    this.profanityService.containsProfanity(messageContent).pipe(
+      switchMap(isProfane => {
+        if (isProfane) {
+          this.sendingMessage = false;
+          // Handle profanity detection, e.g., show a warning to the user
+          alert('Your message contains inappropriate language and cannot be sent.');
+          throw new Error('Your message contains inappropriate language and cannot be sent.');
+        }
 
-      // If no profanity, proceed to send the message
-      this.sendingMessage = true;
-      this.chatService.postNewMessage({
-        senderId: this.meAuth.id,
-        receiverId: this.selectedId,
-        content: messageContent,
-        status: 'SENT',
-      }).subscribe(() => {
-        this.sendingMessage = false;
-        this.loadConversation();
-      });
+        // Reset the message form after sending
+        this.messageForm.reset();
 
-      // Reset the message form after sending
-      this.messageForm.reset();
+        return this.chatService.postNewMessage({
+          senderId: this.meAuth.id,
+          receiverId: this.selectedId,
+          content: messageContent,
+          status: 'SENT',
+        });
+
+      })
+    ).subscribe(() => {
+      this.sendingMessage = false;
+      this.loadConversation();
     });
   }
 

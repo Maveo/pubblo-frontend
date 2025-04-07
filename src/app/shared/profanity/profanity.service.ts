@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
-import { BadWordsRx } from '../api/chat/models/bad-words-rx.model';
 import { ChatService } from '../api/chat/chat.service';
 
 @Injectable()
 export class ProfanityService {
-  private badWords$: Observable<BadWordsRx>;
+  private badWords$: Observable<Set<string>>;
 
   constructor(private chatService: ChatService) {
-    this.badWords$ = this.chatService.getBadWords().pipe(shareReplay(1));
+    this.badWords$ = this.chatService.getBadWords().pipe(
+      map((badWords) => new Set(badWords.words)),
+      shareReplay(1),
+    );
   }
 
-  preloadBadWords(): Observable<BadWordsRx> {
+  preloadBadWords(): Observable<Set<string>> {
     return this.badWords$;
   }
 
   containsProfanity(message: string): Observable<boolean> {
     return this.badWords$.pipe(
-      map((badWords) => {
+      map((badWordsSet) => {
         const words = message.toLowerCase().split(/\W+/); // split on non-word chars
-        return words.some(word => badWords.words.includes(word));
+        return words.some(word => badWordsSet.has(word)); // Use Set's `has` method
       })
     );
   }
