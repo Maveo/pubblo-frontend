@@ -42,23 +42,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Install Browser Dependencies (Windows)
-        if: startsWith(matrix.os, 'windows')
-        # Windows runners usually have Chrome/Edge pre-installed.
-        # Add steps here only if you need specific versions or other browsers not pre-installed.
+      - name: Install Firefox Dependencies (Windows)
+        if: ${{ startsWith(matrix.os, 'windows') && startsWith(matrix.browser, 'Firefox') }}
         run: |
-          echo "Browser dependencies usually pre-installed on Windows runners."
-        # Example: if you needed Firefox on Windows
-        # choco install firefox
+          choco install firefox
 
-      - name: Install Browser Dependencies (macOS)
-        if: startsWith(matrix.os, 'macos')
+      - name: Install Firefox macOS
+        if: ${{ startsWith(matrix.os, 'macos') && startsWith(matrix.browser, 'Firefox') }}
         # macOS runners usually have Safari and Chrome pre-installed.
         # Add steps here only if you need specific versions or other browsers not pre-installed.
         run: |
-          echo "Browser dependencies usually pre-installed on macOS runners."
-        # Example: if you needed Firefox on macOS
-        # brew install --cask firefox
+          brew install --cask firefox
 
       - name: Run Tests - ${{ matrix.browser }}
         run: npm run test-ci -- --browsers ${{ matrix.browser }}
