@@ -1,0 +1,79 @@
+name: Angular CI - Test Multiple Browsers
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    # Use a matrix strategy to run tests on different OS and Node versions
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [22.x] # Specify Node.js versions to test against
+
+    runs-on: ${{ matrix.os }}
+
+    # Set the default shell for steps within this job when running on Windows
+    if: startsWith(runner.os, 'Windows')
+    shell: cmd
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm' # Cache node modules for faster builds
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Install browser dependencies based on OS
+      - name: Install Browser Dependencies (Ubuntu)
+        if: startsWith(runner.os, 'Linux')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev libatk-bridge2.0-0 libgtk-3-0 libnss3 libxss1
+
+      - name: Install Browser Dependencies (Windows)
+        if: startsWith(runner.os, 'Windows')
+        # Windows runners usually have Chrome/Edge pre-installed.
+        # You might need to add steps here if you need specific versions or other browsers.
+        run: |
+          echo "Browser dependencies usually pre-installed on Windows runners."
+          # Example: if you needed Firefox on Windows
+          # choco install firefox
+
+      - name: Install Browser Dependencies (macOS)
+        if: startsWith(runner.os, 'macOS')
+        # macOS runners usually have Safari and Chrome pre-installed.
+        # You might need to add steps here if you need specific versions or other browsers.
+        run: |
+          echo "Browser dependencies usually pre-installed on macOS runners."
+          # Example: if you needed Firefox on macOS
+          # brew install --cask firefox
+
+      # Run tests with different browsers using headless mode
+      # Configure karma.conf.js or pass flags directly
+      - name: Run Tests - Chrome Headless
+        # Use --no-watch --no-progress --browsers ChromeHeadless
+        # Ensure ChromeHeadless is configured in your karma.conf.js or use customLaunchers
+        run: npm run test-ci -- --browsers ChromeHeadlessCI
+
+      - name: Run Tests - Firefox Headless
+        # Use --no-watch --no-progress --browsers FirefoxHeadless
+        # Ensure FirefoxHeadless is configured in your karma.conf.js or use customLaunchers
+        # You might need to install Firefox on the runner if not available by default
+        if: matrix.os != 'macos-latest' # Firefox is less common on macOS runners by default
+        run: npm run test-ci -- --browsers FirefoxHeadlessCI
+
+      # Safari is typically only available on macOS runners and doesn't have a standard headless mode.
+      # You might need to configure a virtual display or use a different approach for Safari testing.
+      # This step is commented out as it requires more complex setup.
+      # - name: Run Tests - Safari
+      #   if: startsWith(runner.os, 'macOS')
+      #   run: npm run test-ci -- --browsers Safari

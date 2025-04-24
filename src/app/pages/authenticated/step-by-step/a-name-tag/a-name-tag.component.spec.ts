@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ANameTagComponent } from './a-name-tag.component';
+import { provideRouter } from '@angular/router';
 
 describe('ANameTagComponent', () => {
   let component: ANameTagComponent;
@@ -8,7 +9,12 @@ describe('ANameTagComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ANameTagComponent]
+      imports: [ANameTagComponent],
+      providers: [
+        provideRouter([
+            // TODO: test routes
+        ]),
+      ],
     })
     .compileComponents();
 

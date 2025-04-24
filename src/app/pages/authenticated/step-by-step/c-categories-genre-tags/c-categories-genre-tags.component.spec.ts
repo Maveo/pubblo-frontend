@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CCategoriesGenreTagsComponent } from './c-categories-genre-tags.component';
+import { provideRouter } from '@angular/router';
 
 describe('CCategoriesGenreTagsComponent', () => {
   let component: CCategoriesGenreTagsComponent;
@@ -8,7 +9,12 @@ describe('CCategoriesGenreTagsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CCategoriesGenreTagsComponent]
+      imports: [CCategoriesGenreTagsComponent],
+      providers: [
+        provideRouter([
+            // TODO: test routes
+        ]),
+      ],
     })
     .compileComponents();
 

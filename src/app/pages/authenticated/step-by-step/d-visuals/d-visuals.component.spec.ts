@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DVisualsComponent } from './d-visuals.component';
+import { provideRouter } from '@angular/router';
 
 describe('DVisualsComponent', () => {
   let component: DVisualsComponent;
@@ -8,7 +9,12 @@ describe('DVisualsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DVisualsComponent]
+      imports: [DVisualsComponent],
+      providers: [
+        provideRouter([
+            // TODO: test routes
+        ]),
+      ],
     })
     .compileComponents();
 

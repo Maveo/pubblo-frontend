@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChatComponent } from './chat.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { ChatService } from '../../shared/api/chat/chat.service';
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -8,7 +10,12 @@ describe('ChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChatComponent]
+      imports: [ChatComponent],
+      providers: [
+        ChatService,
+        HttpClient,
+        HttpHandler,
+      ],
     })
     .compileComponents();
 
