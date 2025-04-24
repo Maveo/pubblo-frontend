@@ -10,10 +10,21 @@ jobs:
     # Use a matrix strategy to run tests on different OS and Node versions
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [22.x] # Specify Node.js versions to test against
+        include:
+          - os: macos-latest
+            node-version: 22.x
+            shell: bash
+          - os: ubuntu-latest
+            node-version: 22.x
+            shell: bash
+          - os: windows-latest
+            node-version: 22.x
+            shell: cmd
 
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: matrix.shell
 
     steps:
       - name: Checkout Code
@@ -55,15 +66,8 @@ jobs:
 
       # Run tests with different browsers using headless mode
       # Ensure HeadlessCI is configured in your karma.conf.js
-      - name: Run Tests - Chrome Headless (not Windows)
-        if: ${{ !startsWith(matrix.os, 'windows') }}
+      - name: Run Tests - Chrome Headless
         run: npm run test-ci -- --browsers ChromeHeadlessCI
-
-      - name: Run Tests - Chrome Headless (Windows)
-        if: startsWith(matrix.os, 'windows')
-        run: |
-          npm run test-ci -- --browsers ChromeHeadlessCI
-          shell: cmd
 
       - name: Run Tests - Firefox Headless (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
