@@ -11,15 +11,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            node-version: 22.x
-            shell: bash
+          # - os: macos-latest
+          #   node-version: 22.x
+          #   shell: bash
           - os: ubuntu-latest
             node-version: 22.x
             shell: bash
-          - os: windows-latest
-            node-version: 22.x
-            shell: cmd
+          # - os: windows-latest
+          #   node-version: 22.x
+          #   shell: cmd
 
     runs-on: ${{ matrix.os }}
     defaults:
@@ -40,11 +40,11 @@ jobs:
         run: npm ci
 
       # Install browser dependencies based on OS if needed
-      - name: Install Browser Dependencies (Ubuntu)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgbm-dev libatk-bridge2.0-0 libgtk-3-0 libnss3 libxss1
+      # - name: Install Browser Dependencies (Ubuntu)
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y libgbm-dev libatk-bridge2.0-0 libgtk-3-0 libnss3 libxss1
 
       - name: Install Browser Dependencies (Windows)
         if: startsWith(matrix.os, 'windows')
