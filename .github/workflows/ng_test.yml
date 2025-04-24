@@ -52,8 +52,8 @@ jobs:
         # Add steps here only if you need specific versions or other browsers not pre-installed.
         run: |
           echo "Browser dependencies usually pre-installed on Windows runners."
-          # Example: if you needed Firefox on Windows
-          # choco install firefox
+        # Example: if you needed Firefox on Windows
+        # choco install firefox
 
       - name: Install Browser Dependencies (macOS)
         if: startsWith(matrix.os, 'macos')
@@ -61,8 +61,8 @@ jobs:
         # Add steps here only if you need specific versions or other browsers not pre-installed.
         run: |
           echo "Browser dependencies usually pre-installed on macOS runners."
-          # Example: if you needed Firefox on macOS
-          # brew install --cask firefox
+        # Example: if you needed Firefox on macOS
+        # brew install --cask firefox
 
       # Run tests with different browsers using headless mode
       # Ensure HeadlessCI is configured in your karma.conf.js
