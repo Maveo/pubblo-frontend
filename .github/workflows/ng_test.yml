@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        shell: matrix.shell
+        shell: ${{ matrix.shell }}
 
     steps:
       - name: Checkout Code
