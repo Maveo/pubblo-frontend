@@ -15,10 +15,6 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    # Set the default shell for steps within this job when running on Windows
-    if: startsWith(runner.os, 'Windows')
-    shell: cmd
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -32,48 +28,50 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      # Install browser dependencies based on OS
+      # Install browser dependencies based on OS if needed
       - name: Install Browser Dependencies (Ubuntu)
-        if: startsWith(runner.os, 'Linux')
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
           sudo apt-get install -y libgbm-dev libatk-bridge2.0-0 libgtk-3-0 libnss3 libxss1
 
       - name: Install Browser Dependencies (Windows)
-        if: startsWith(runner.os, 'Windows')
+        if: startsWith(matrix.os, 'windows')
         # Windows runners usually have Chrome/Edge pre-installed.
-        # You might need to add steps here if you need specific versions or other browsers.
+        # Add steps here only if you need specific versions or other browsers not pre-installed.
         run: |
           echo "Browser dependencies usually pre-installed on Windows runners."
           # Example: if you needed Firefox on Windows
           # choco install firefox
 
       - name: Install Browser Dependencies (macOS)
-        if: startsWith(runner.os, 'macOS')
+        if: startsWith(matrix.os, 'macos')
         # macOS runners usually have Safari and Chrome pre-installed.
-        # You might need to add steps here if you need specific versions or other browsers.
+        # Add steps here only if you need specific versions or other browsers not pre-installed.
         run: |
           echo "Browser dependencies usually pre-installed on macOS runners."
           # Example: if you needed Firefox on macOS
           # brew install --cask firefox
 
       # Run tests with different browsers using headless mode
-      # Configure karma.conf.js or pass flags directly
-      - name: Run Tests - Chrome Headless
-        # Use --no-watch --no-progress --browsers ChromeHeadless
-        # Ensure ChromeHeadless is configured in your karma.conf.js or use customLaunchers
+      # Ensure HeadlessCI is configured in your karma.conf.js
+      - name: Run Tests - Chrome Headless (not Windows)
+        if: ${{ !startsWith(matrix.os, 'windows') }}
         run: npm run test-ci -- --browsers ChromeHeadlessCI
 
-      - name: Run Tests - Firefox Headless
-        # Use --no-watch --no-progress --browsers FirefoxHeadless
-        # Ensure FirefoxHeadless is configured in your karma.conf.js or use customLaunchers
-        # You might need to install Firefox on the runner if not available by default
-        if: matrix.os != 'macos-latest' # Firefox is less common on macOS runners by default
+      - name: Run Tests - Chrome Headless (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          npm run test-ci -- --browsers ChromeHeadlessCI
+          shell: cmd
+
+      - name: Run Tests - Firefox Headless (Ubuntu)
+        if: startsWith(matrix.os, 'ubuntu')
         run: npm run test-ci -- --browsers FirefoxHeadlessCI
 
       # Safari is typically only available on macOS runners and doesn't have a standard headless mode.
-      # You might need to configure a virtual display or use a different approach for Safari testing.
+      # Testing Safari often requires a virtual display or a different approach.
       # This step is commented out as it requires more complex setup.
-      # - name: Run Tests - Safari
-      #   if: startsWith(runner.os, 'macOS')
+      # - name: Run Tests - Safari (macOS)
+      #   if: startsWith(matrix.os, 'macOS')
       #   run: npm run test-ci -- --browsers Safari
